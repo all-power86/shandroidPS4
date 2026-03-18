@@ -599,6 +599,8 @@ jobs:
             echo "Skipping pre-release: $release_id (newer or same date)"
           fi
         done
+# Build for Adreno 840 - Manual Trigger
+
 
 
 
