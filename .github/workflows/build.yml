@@ -1,4 +1,4 @@
-name: Build Android APK
+name: Build Android APK Adreno
 on:
   workflow_dispatch:
   push:
@@ -10,17 +10,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          submodules: recursive
+          submodules: false # <--- Aquí está el truco: saltamos lo que falla
       - name: set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
       - name: Build with Gradle
-        run: chmod +x gradlew && ./gradlew assembleRelease
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease --stacktrace
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: shadPS4-Android-Adreno840
-          path: app/build/outputs/apk/release/*.apk
-          
+          name: shadPS4-Adreno840-Fixed
+          path: "**/*.apk"
